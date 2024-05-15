@@ -1,4 +1,4 @@
-import { useState,useEffect,useCallback } from "react"
+import { useState,useEffect,useCallback,useRef } from "react"
 
 
 
@@ -13,7 +13,7 @@ function App() {
   const [isCapitalAllow,setCapitalAllow]=useState(false);
 
   
-
+   const passwordRef=useRef(null);
   
 
   const generatePassword=useCallback(()=>{
@@ -70,7 +70,8 @@ function App() {
 
   const copyPassword=()=>{
     navigator.clipboard.writeText(password);
-    alert("Password Copied");
+    passwordRef.current?.select();
+   
   }
 
   return (
@@ -79,7 +80,7 @@ function App() {
           <h1 className="text-white text-2xl lg:text-5xl font-bold">Password Generator</h1>
           <div className=" w-[80%] lg:w-[33%]">
           <div className=" flex w-full ">
-            <input type="text" className="py-4 w-[80%] px-8 focus:text-start outline-none focus:outline-none  border-b-8 cursor-pointer" value={password} readOnly />
+            <input type="text" className="py-4 w-[80%] px-8 focus:text-start outline-none focus:outline-none  border-b-8 cursor-pointer" value={password} ref={passwordRef} readOnly />
             <button className="py-4 px-8 w-[30%]  bg-green-500  hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-500" onClick={copyPassword}>Copy</button>
           </div>
           </div>
