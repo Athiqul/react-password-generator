@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useEffect,useCallback } from "react"
 
 
 
@@ -16,7 +16,7 @@ function App() {
 
   
 
-  const generatePassword=()=>{
+  const generatePassword=useCallback(()=>{
     let createPassword="";
     let letters="abcdefghijklmnopqrstuvwxyz";
     let numbers="01632241032";
@@ -39,29 +39,33 @@ function App() {
 
 
       setPassword(createPassword);
+  },[passwordLength,isCapitalAllow,isSymbolAllow,isNumberAllow]) ;
 
-  }
+  useEffect(()=>{
+    generatePassword();
+  },[passwordLength,isCapitalAllow,isSymbolAllow,isNumberAllow]);
+
   const [password,setPassword]=useState('');
   const numberAllowHandle=()=>{
-    setNumberAllow(!isNumberAllow);
-    generatePassword();
+    setNumberAllow((prev)=>!prev);
+   
   }
 
 
   const symbolAllowHandle=()=>{
-    symbolAllow(!isSymbolAllow);
-    generatePassword();
+    symbolAllow((prev)=>!prev);
+    
   }
 
 
   const capitalAllowHandle=()=>{
-    setCapitalAllow(!isCapitalAllow);
-    generatePassword();
+    setCapitalAllow((prev)=>!prev);
+   
   }
 
   const passwordLengthHandle=(e)=>{
     setPasswordLength(e.target.value);
-    generatePassword();
+   
   }
 
   const copyPassword=()=>{
@@ -80,8 +84,8 @@ function App() {
           </div>
           </div>
           <div className="flex justify-center gap-2 lg:flex-row flex-col">
-          <label htmlFor="range" className="text-white">Length:</label>
-            <input type="range" name="" id="range" value={passwordLength} onChange={passwordLengthHandle} max="20" />
+          <label htmlFor="range" className="text-white">Length:{passwordLength}</label>
+            <input type="range" name="" id="range" min={8} value={passwordLength} onChange={passwordLengthHandle} max="20" />
             <label htmlFor="checkBox" className="text-white">IsNumberAccept?</label>
             <input type="checkbox" name="" className="bg-red-500" id="checkBox"   value={isNumberAllow} onChange={numberAllowHandle} checked={isNumberAllow} />
             <label htmlFor="symbol" className="text-white">SymbolAllow?</label>
