@@ -41,7 +41,7 @@ function App() {
       setPassword(createPassword);
 
   }
-  const [password,setPassword]=useState();
+  const [password,setPassword]=useState('');
   const numberAllowHandle=()=>{
     setNumberAllow(!isNumberAllow);
     generatePassword();
@@ -73,9 +73,9 @@ function App() {
     <>
      <div className="w-full bg-sky-500 h-screen flex flex-col gap-3 justify-center items-center overflow-hidden">
           <h1 className="text-white text-2xl lg:text-5xl font-bold">Password Generator</h1>
-          <div className="bg-orange-300 w-[80%] lg:w-[33%]">
+          <div className=" w-[80%] lg:w-[33%]">
           <div className=" flex w-full ">
-            <input type="text" className="py-4 w-[80%] px-8 border-t  rounded-t-2xl focus:text-start outline-none focus:outline-none  border-b-8 cursor-pointer" value={password==''?generatePassword:password} readOnly />
+            <input type="text" className="py-4 w-[80%] px-8 focus:text-start outline-none focus:outline-none  border-b-8 cursor-pointer" value={password} readOnly />
             <button className="py-4 px-8 w-[30%]  bg-green-500  hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-500" onClick={copyPassword}>Copy</button>
           </div>
           </div>
